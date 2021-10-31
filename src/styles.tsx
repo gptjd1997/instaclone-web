@@ -2,7 +2,7 @@ import { createGlobalStyle, DefaultTheme } from "styled-components";
 import reset from "styled-reset";
 
 export const lightTheme: DefaultTheme = {
-  fontColor: "#2c2c2c",
+  fontColor: "#272727d4",
   bgColor: "#fafafa",
   accent: "#0095f6", //차별점 색깔
   borderColor: "rgb(219,219,219)",
@@ -14,16 +14,17 @@ export const lightTheme: DefaultTheme = {
   boxShadow_4: "rgba(149, 157, 165, 0.2) 0px 8px 24px;",
   placeholderColor: "#9c9c9c;",
   changeColor: "#222222a2;",
-  subFontColor: "#8e8e8e",
+  subFontColor: "rgba(var(--f52,142,142,142),1)",
   linkFontColor: "#00376b",
   facebookFontColor: "#385285",
+  wrapperWidth: "930px",
 };
 export const darkTheme: DefaultTheme = {
   fontColor: "#F0F4F8",
   bgColor: "#121212",
   accent: "#0099ff6f",
   borderColor: "#242424d8",
-  boxColor: "#ffffff28",
+  boxColor: "#373737",
   inputColor: "#ffffff83",
   boxShadow_1: "0px 5px 13px rgba(0, 0, 0, 1)",
   boxShadow_2: "rgba(0, 0, 0, 1) 0px 1px 4px;",
@@ -34,6 +35,7 @@ export const darkTheme: DefaultTheme = {
   subFontColor: "#f0f4f8a2",
   linkFontColor: "#2576c7",
   facebookFontColor: "#74a2ffb8",
+  wrapperWidth: "930px",
 };
 
 export const GlobalStyles = createGlobalStyle`

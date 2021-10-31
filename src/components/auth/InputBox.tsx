@@ -1,7 +1,4 @@
-import styled, {
-  ThemedStyledInterface,
-  ThemedStyledProps,
-} from "styled-components";
+import styled from "styled-components";
 
 type Props = {
   hasError?: Boolean;
@@ -23,7 +20,8 @@ const Input = styled.input<Props>`
     ${(props) => (props.hasError ? "tomato" : props.theme.borderColor)};
   border-radius: 3px;
   color: rgb(38, 38, 38);
-
+  --webkit-animation {
+  }
   &:focus {
     border-color: rgb(149, 149, 149);
   }

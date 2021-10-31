@@ -1,4 +1,5 @@
 import "styled-components";
+import "sanitize-html";
 
 declare module "styled-components" {
   export interface DefaultTheme {
@@ -6,6 +7,7 @@ declare module "styled-components" {
     subFontColor: string;
     linkFontColor: string;
     facebookFontColor: string;
+    wrapperWidth: string;
     bgColor: string;
     accent: string;
     borderColor: string;

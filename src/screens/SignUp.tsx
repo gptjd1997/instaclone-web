@@ -6,7 +6,7 @@ import Separator from "../components/auth/Separator";
 import InputBox from "../components/auth/InputBox";
 import FormBox from "../components/auth/FormBox";
 import BottomBox from "../components/auth/BottomBox";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { emailExp, passwordExp, usernameExp } from "../regExps";
 import { gql, useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
@@ -58,6 +58,13 @@ const CREATEACCOUNT_MUTATION = gql`
   }
 `;
 
+interface IForm {
+  lastName?: string;
+  firstName: string;
+  email: string;
+  username: string;
+  password: string;
+}
 const SignUp = () => {
   const history = useHistory();
   const onCompleted = (data: any) => {
@@ -81,21 +88,18 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    clearErrors,
     setError,
   } = useForm({
     mode: "onChange",
   });
 
-  const resultClear = () => clearErrors("result");
-
-  const onSubmitValid = ({
+  const onSubmitValid: SubmitHandler<IForm> = ({
     lastName,
     firstName,
     email,
     username,
     password,
-  }: any) => {
+  }) => {
     if (!loading) {
       createAccount({
         variables: { lastName, firstName, email, username, password },
@@ -106,7 +110,7 @@ const SignUp = () => {
   const onSubmitInValid = (data: any) => {
     console.log(data);
   };
-
+  console.log(isValid, loading);
   return (
     <AuthLayout>
       <FormBox>
@@ -119,21 +123,18 @@ const SignUp = () => {
         <Separator />
         <form onSubmit={handleSubmit(onSubmitValid, onSubmitInValid)}>
           <InputBox
-            onFocus={resultClear}
             {...register("lastName", { required: false })}
             type="text"
             placeholder="성"
           />
           <InputBox
             hasError={Boolean(errors?.firstName)}
-            onFocus={resultClear}
             {...register("firstName", { required: true, minLength: 1 })}
             type="text"
             placeholder="이름 (필수)"
           />
           <InputBox
             hasError={Boolean(errors?.email)}
-            onFocus={resultClear}
             {...register("email", {
               minLength: 6,
               required: true,
@@ -144,7 +145,6 @@ const SignUp = () => {
           />
           <InputBox
             hasError={Boolean(errors?.username)}
-            onFocus={resultClear}
             {...register("username", {
               minLength: 6,
               maxLength: 12,
@@ -156,7 +156,6 @@ const SignUp = () => {
           />
           <InputBox
             hasError={Boolean(errors?.password)}
-            onFocus={resultClear}
             {...register("password", {
               minLength: 6,
               maxLength: 16,
@@ -170,7 +169,7 @@ const SignUp = () => {
             placeholder="비밀번호┃ 숫자,영어,특수문자 8~16글자 (필수)"
           />
           <SubmitButton
-            disabled={!isValid || !loading}
+            disabled={!isValid || loading}
             type="submit"
             value={loading ? "가입중" : "가입"}
           />

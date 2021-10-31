@@ -9,13 +9,13 @@ import InputBox from "../components/auth/InputBox";
 import FormBox from "../components/auth/FormBox";
 import BottomBox from "../components/auth/BottomBox";
 import Pagetitle from "../components/pagetitle";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { passwordExp } from "../regExps";
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import ErrorBox from "../components/auth/ErrorBox";
 import { logUserIn } from "../apollo";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ChimstagramLogo } from "../components/shared";
 const FacebookLogin = styled.div`
   display: flex;
@@ -56,9 +56,13 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
+interface IForm {
+  user: string;
+  password: string;
+}
+
 const Login = () => {
   const location = useLocation<any>();
-  console.log(location);
   const [loginError, setLoginError] = useState(null);
   const onCompleted = (data: any) => {
     const {
@@ -67,10 +71,8 @@ const Login = () => {
     if (!ok) {
       setLoginError(error);
       setError("result", { message: error });
-      console.log(error);
     } else {
       setLoginError(null);
-      console.log("ok:", ok, "  error:", error, "  token:", token);
     }
     if (token) {
       logUserIn(token);
@@ -87,7 +89,7 @@ const Login = () => {
     formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
 
-  const onSubmitValid = ({ user, password }: any) => {
+  const onSubmitValid: SubmitHandler<IForm> = ({ user, password }) => {
     if (!loading) {
       login({ variables: { loginUser: user, password } });
     }
@@ -142,7 +144,7 @@ const Login = () => {
           {loginError ? loginError : location?.state?.message || null}
         </ErrorBox>
         <ForgotPassword>
-          <a>비밀번호를 잊으셨나요?</a>
+          <Link to="#">비밀번호를 잊으셨나요?</Link>
         </ForgotPassword>
       </FormBox>
       <BottomBox
