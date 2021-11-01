@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Tagged from "../Tagged";
 
 const Captions = styled.div`
   min-height: 18px;
@@ -26,16 +27,7 @@ type Props = {
 };
 
 const Comment = ({ author, payload }: Props) => {
-  const splitedPayload = payload.split(" ").map((word, index) =>
-    /#[\w]+/g.test(word) ? (
-      <Link key={index} to={`/hashtags/${word}`}>
-        {word + " "}
-      </Link>
-    ) : (
-      <React.Fragment key={index}>{word + " "}</React.Fragment>
-    )
-  );
-  console.log(splitedPayload);
+  const splitedPayload = Tagged(payload);
   return (
     <Captions>
       <User>{author}</User>

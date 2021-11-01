@@ -22,7 +22,7 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   fontColor: "#F0F4F8",
   bgColor: "#121212",
-  accent: "#0099ff6f",
+  accent: "#70c6ffcc", //차별점 색깔
   borderColor: "#242424d8",
   boxColor: "#373737",
   inputColor: "#ffffff83",

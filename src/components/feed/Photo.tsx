@@ -7,14 +7,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 import Avatar from "../Avatar";
 import { BaseBox } from "../shared";
 import Comments from "./Comments";
 
-const PhotoFooter = styled.div`
-  max-height: 260px;
-`;
+const PhotoFooter = styled.div``;
 const FooterHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -75,7 +73,7 @@ const PhotoImg = styled.img`
 
 type heartProps = {
   isLiked: boolean;
-  theme: any;
+  theme: DefaultTheme;
 };
 
 type Props = {
@@ -138,7 +136,14 @@ const Photo = ({
     variables: { photoId: id },
     update: updateToggleLike,
   });
-  const commentProps = { caption, commentNumber, comments, createdAt, user };
+  const commentsProps = {
+    photoId: id,
+    caption,
+    commentNumber,
+    comments,
+    createdAt,
+    user,
+  };
 
   return (
     <PhotoContainer key={id}>
@@ -164,7 +169,7 @@ const Photo = ({
           <div></div>
         </FooterHeader>
         <FooterLikes>좋아요 {likes}개</FooterLikes>
-        <Comments {...commentProps} />
+        <Comments {...commentsProps} />
       </PhotoFooter>
     </PhotoContainer>
   );
